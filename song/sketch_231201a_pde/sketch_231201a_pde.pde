@@ -44,55 +44,55 @@ xLoop = appWidth*0;
 yLoop = appHeight*0;
 widthLoop = appWidth*1/4;
 heightLoop = appHeight*1/4;
-repeat = loadImage("images/repeat.png");
+repeat = loadImage("../images/repeat.png");
 
 xLoop1 = appWidth*0;
 yLoop1 = appHeight*0;
 widthLoop1 = appWidth*1/4;
 heightLoop1 = appHeight*1/4;
-repeat1 = loadImage("images/repeat1.png");
+repeat1 = loadImage("../images/repeat1.png");
 
 xStart = appWidth*1/4;
 yStart = appHeight*0;
 widthStart = appWidth*1/4;
 heightStart = appHeight*1/4;
-play = loadImage("images/play.png");
+play = loadImage("../images/play.png");
 
 xStop = appWidth*1/4;
 yStop = appHeight*0;
 widthStop = appWidth*1/4;
 heightStop = appHeight*1/4;
-paws = loadImage("images/paws.png");
+paws = loadImage("../images/paws.png");
 
 xFF = appWidth*2/4;
 yFF = appHeight*0;
 widthFF = appWidth*1/4;
 heightFF = appHeight*1/4;
-fasrFowerd = loadImage("images/fasrFowerd.png");
+fasrFowerd = loadImage("../images/fasrFowerd.png");
 
 xFR = appWidth*0;
 yFR = appHeight*1/4;
 widthFR = appWidth*1/4;
 heightFR = appHeight*1/4;
-fastRewind = loadImage("images/fastRewind.png");
+fastRewind = loadImage("../images/fastRewind.png");
 
 xskip = appWidth*1/4;
 yskip = appHeight*1/4;
 widthskip = appWidth*1/4;
 heightskip = appHeight*1/4;
-skip = loadImage("images/skip.png");
+skip = loadImage("../images/skip.png");
 
 xprev = appWidth*2/4;
 yprev = appHeight*1/4;
 widthprev = appWidth*1/4;
 heightprev = appHeight*1/4;
-prev = loadImage("image/prev.png");
+prev = loadImage("../image/prev.png");
 
 xshuffel = appWidth*3/4;
 yshuffel = appHeight*1/4;
 widthshuffel = appWidth*1/4;
 heightshuffel = appHeight*1/4;
-shuffel = loadImage("image/shuffel.png");
+shuffel = loadImage("../image/shuffel.png");
 
 } //End setup
 //
