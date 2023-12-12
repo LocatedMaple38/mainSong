@@ -33,10 +33,10 @@ void setup() {
   appHeight = height;
   //Display Algorithm
   minim = new Minim(this); //load from data directory, loadFile should also load from project folder, like loadImage
-  String groove = "groove";
+  String BYC = "Beat_Your_Competition";
   String extension1 = ".mp3";
   String pathway1 = "adio"; //Relative Path
-  String path1 = sketchPath( pathway1 + groove + extension1); //Absolute Path
+  String path1 = sketchPath( pathway1 + BYC + extension1); //Absolute Path
   
   String image = "../images/";
   String extension2 = ".png";
