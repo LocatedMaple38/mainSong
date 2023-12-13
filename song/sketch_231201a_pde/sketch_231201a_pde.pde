@@ -20,13 +20,14 @@ float xFR, yFR, widthFR, heightFR;
 //
 //Global Variables
 Minim minim; //creates object to access all functions
-AudioPlayer song1; //creates "Play List" variable holding extensions WAV, AIFF, AU, SND, and MP3
-AudioMetaData songMetaData1; //Stores everything from PlayList Properties TAB (.mp3)
+AudioPlayer[] song = new AudioPlayer[numbSongs]; //creates "Play List" variable holding extensions WAV, AIFF, AU, SND, and MP3
+AudioMetaData[] songMetaData = new AudioPlayer[numbEff]; //Stores everything from PlayList Properties TAB (.mp3)
 PFont generalFont;
 color purple = #2C08FF;
 
 int appWidth, appHeight;
-//
+int numbSongs = 8;
+int numbEff = 0;
 void setup() {
   size(600, 600, P3D);
   appWidth = width;
