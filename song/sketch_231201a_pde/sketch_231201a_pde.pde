@@ -15,11 +15,12 @@ boolean FRTF = false;
 boolean nextTF = false;
 boolean prevTF = false;
 
-int numbSongs = 3;
+int numbSongs = 12;
 int numbEff = 0;
 
 PImage repeat, repeat1, play, paws, skip, prev, shuffel, fasrFowerd, fastRewind;
 
+float xBackGround, yBackGround, widthBackGround, heightBackGround;
 float xLoop, yLoop, widthLoop, heightLoop;
 float xStart, yStart, widthStart, heightStart;
 float xStop, yStop, widthStop, heightStop;
@@ -31,8 +32,8 @@ float xFR, yFR, widthFR, heightFR;
 //
 //Global Variables
 Minim minim; //creates object to access all functions
-AudioPlayer[] song = new AudioPlayer[numbSongs]; //creates "Play List" variable holding extensions WAV, AIFF, AU, SND, and MP3
-AudioMetaData[] songMetaData = new AudioMetaData[numbSongs]; //Stores everything from PlayList Properties TAB (.mp3)
+AudioPlayer[] song = new AudioPlayer[ numbSongs ]; //creates "Play List" variable holding extensions WAV, AIFF, AU, SND, and MP3
+AudioMetaData[] songMetaData = new AudioMetaData[ numbSongs ]; //
 PFont generalFont;
 color purple = #2C08FF;
 
@@ -46,15 +47,16 @@ void setup() {
   minim = new Minim(this); //load from data directory, loadFile should also load from project folder, like loadImage
   String BYC = "Beat_Your_Competition";
   String extension1 = ".mp3";
-  String pathway = "../adio/"; //Relative Path
-  String path = sketchPath( pathway + BYC + extension1); //Absolute Path
+  String pathwaySongs = "../adio/song/"; //Relative Path
+  String pathwaySoundEFX = "../adio/soundEFX/";
+  String path = sketchPath( pathwaySongs + BYC + extension1); //Absolute Path
   
   String image = "../images/";
   String extension2 = ".png";
   
   // See: https://poanchen.github.io/blog/20[0]6/[0][0]/[0]5/how-to-add-background-music-in-processing-3.0
   println(path);
-  song[0] = minim.loadFile( path);
+  song[0] = minim.loadFile(path);
   songMetaData[0] = song[0].getMetaData();
   generalFont = createFont ("Harrington", 55); //Must also Tools / Create Font / Find Font / Do Not Press "OK"
   //song[0].loop(0);
@@ -82,6 +84,11 @@ void setup() {
   println("Track", songMetaData[0].track() );
   println("Genre", songMetaData[0].genre() );
   println("Encoded", songMetaData[0].encoded() );
+  
+  xBackGround = appWidth*0;
+  yBackGround = appHeight*0;
+  widthBackGround = appWidth-1;
+  heightBackGround = appHeight-1;
   
 xLoop = appWidth*0;
 yLoop = appHeight*0;
@@ -135,7 +142,31 @@ fastRewind = loadImage(image + "fastRewind" + extension2);
 } //End setup
 //
 void draw() {
-  rect1();
+  fill(255);
+  rect(xBackGround, yBackGround, widthBackGround, heightBackGround);
+  noFill();
+  if(playTF == false){
+    image(paws, xStop, yStop, widthStop, heightStop);
+  }else{
+    image(play, xStart, yStart, widthStart, heightStart);
+  }
+  if(repeatTF == false){
+    image(repeat, xLoop, yLoop, widthLoop, heightLoop);
+  }else if(reapet1TF == false){
+    image(repeat, xLoop, yLoop, widthLoop, heightLoop);
+  }else{
+    image(repeat1, xLoop, yLoop, widthLoop, heightLoop);
+  }
+  if(shuffelTF == false){
+    image(shuffel, xshuffel ,yshuffel, widthshuffel, heightshuffel);
+  }else{
+    image(shuffel, xshuffel ,yshuffel, widthshuffel, heightshuffel);
+  }
+  image(skip, xskip, yskip, widthskip, heightskip);
+  image(prev, xprev, yprev, widthprev, heightprev);
+  image(fasrFowerd, xFF, yFF, widthFF, heightFF);
+  image(fastRewind, xFR, yFR, widthFR, heightFR);
+  
   //NOte: Looping Function
   //Note: logical operators could be nested IFs
   if ( song[0].isLooping() && song[0].loopCount()!=-1 );
@@ -156,7 +187,7 @@ void keyPressed() {
     song[0].loop(loopNum); //Parameter is number of repeats
     //
   }
-  if ( key=='L' || key=='l' ) song[0].loop(); //Infinite Loop, no parameter OR -[0]
+  if ( key == CONTROL && key == 'r' || key=='R' ) song[0].loop(); //Infinite Loop, no parameter OR -[0]
   //
   if ( key=='M' || key=='m' ) { //MUTE Button
     //MUTE Behaviour: stops electricty to speakers, does not stop file
@@ -177,29 +208,36 @@ void keyPressed() {
   //Possible ERROR: FR rewinds to parameter milliseconds from SONG Start
   //How does this get to be a true ff and fr button
   //Actual .skip() allows for varaible ff & fr using .position()+-
-  if ( key=='F' || key=='f' ) song[0].skip( 0 ); //SKIP forward [0] second ([0]000 milliseconds)
-  if ( key=='R' || key=='r' ) song[0].skip( 1000 ); //SKIP  backawrds [0] second, notice negative, (-[0]000 milliseconds)
-  //
-  //Simple STOP Behaviour: ask if .playing() & .pause() & .rewind(), or .rewind()
-  if ( key=='S' | key=='s' ) {
-    if ( song[0].isPlaying() ) {
-      song[0].pause(); //auto .rewind()
-    } else {
-      song[0].rewind(); //Not Necessary
-    }
+  if ( key == SHIFT && key == LEFT) song[0].skip( 0 ); //SKIP forward [0] second ([0]000 milliseconds)
+  if ( key == SHIFT && key == RIGHT ){
+    song[0].skip( 1000 ); //SKIP  backawrds [0] second, notice negative, (-[0]000 milliseconds)
   }
   //
   //Simple Pause Behaviour: .pause() & hold .position(), then PLAY
-  if ( key=='Y' | key=='y' ) {
-    if ( song[0].isPlaying()==true ) {
-      song[0].pause(); //auto .rewind()
-    } else {
-      song[0].play(); //ERROR, doesn't play
-    }
+  if(playTF == true && key == ' '){
+    song[0].pause();
+    println("playTF = "+playTF);
+    playTF = false;
+  }
+  
+  if(playTF == true && key == ' '){
+    song[0].pause();
+    println("playTF = "+playTF);
+    playTF = false;
   }
 } //End keyPressed
 //
 void mousePressed() {
+  
+  
+  
+  if(playTF == false && mouseX>xStart && mouseX<xStart+widthStart && mouseY>yStart && mouseY<yStart+heightStart){
+    song[0].play();
+    println("playTF = "+playTF);
+    playTF = true;
+  }
+    
+  
   if(repeatTF == false && mouseX>xLoop && mouseX<xLoop+widthLoop && mouseY>yLoop && mouseY<yLoop+heightLoop){
     repeatTF = true;
   }else if(repeatTF == true){
