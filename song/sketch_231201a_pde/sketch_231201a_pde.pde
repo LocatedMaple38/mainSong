@@ -15,7 +15,7 @@ boolean FRTF = false;
 boolean nextTF = false;
 boolean prevTF = false;
 
-int numbSongs = 12;
+int numbSongs = 0;
 int numbEff = 0;
 
 PImage repeat, repeat1, play, paws, skip, prev, shuffel, fasrFowerd, fastRewind;
